@@ -12,18 +12,18 @@
  */
 fun main() {
     //Inicializamos variables útiles para el programa.
-    var running = true
-    var prime = false
+    var running = true  //booleano que define si el programa sigue ejecutándose o no.
 
-    //Utilizamos un bucle do-while para pedir números al usuario y preguntar si quiere seguir con el programa o no.
+    //Utilizamos un bucle do-while para pedir un número al usuario y preguntar si quiere seguir con el programa o no.
     do {
         //Le pedimos al usuario un número entero.
         print("Introduce un número entero positivo mayor que 1: ")  //Asumimos que el usuario introducirá un valor válido.
         var number = readln().toInt()
+        var prime = false   //booleano para detectar si un número introducido es primo o no.
 
         //Comprobación de número primo:
 
-        //Comprobamos si el número introducido es par. Todos los números primos son impares con excpeción del 2.
+        //Comprobamos si el número introducido es par. Todos los números primos son impares con excepción del 2.
         if (number % 2 == 0) {
             prime = false
             //Excepción del número 2.
@@ -31,17 +31,21 @@ fun main() {
                 prime = true
             }
         } else {
-            primeCheck@ for (i in 2 until number step 2) {
-
+            prime = true
+            primeCheck@ for (i in 3 until number step 2) {
+                if (number % i == 0) {
+                    prime = false
+                    break@primeCheck
+                }
             }
-
         }
 
         //Imprimimos el resultado de la comprobación.
         if (prime) println("El número $number es un número primo.") else println("El número $number no es un número primo.")
 
         //Preguntamos al usuario si quiere seguir con el programa.
-        print("¿Quieres continuar con el programa? Introduce 0 (Sí) o 1 (No): ")
-        if (readln().toInt() == 0) running = true else running = false
+        print("¿Quieres continuar con el programa? Introduce 1 (Sí) o 0 (No): ")
+        if (readln().toInt() == 0) running = false
+
     } while (running)
 }
