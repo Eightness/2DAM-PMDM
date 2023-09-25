@@ -28,11 +28,13 @@ fun main() {
             sum += number   //Sumamos el número introducido por el usuario.
 
             //Sobreescribimos las variables "minor" y "major" para actualizarlas, si consta.
-            if (number < minor) minor = number else if (number > major) major = number
+            if (number < minor) minor = number
+            if (number > major) major = number
         }
     } while (number != 0)
 
-    val average: Double = (sum / index).toDouble()
+    //Calculamos la media.
+    val average: Double = sum.toDouble() / index.toDouble()
 
     //Resultado por pantalla.
     println("El número más pequeño introducido es: $minor")
