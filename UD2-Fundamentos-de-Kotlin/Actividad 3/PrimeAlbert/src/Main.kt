@@ -18,8 +18,8 @@ fun main() {
     do {
         //Le pedimos al usuario un número entero.
         print("Introduce un número entero positivo mayor que 1: ")  //Asumimos que el usuario introducirá un valor válido.
-        var number = readln().toInt()
-        var prime = false   //booleano para detectar si un número introducido es primo o no.
+        val number = readln().toInt()
+        var prime: Boolean   //booleano para detectar si un número introducido es primo o no.
 
         //Comprobación de número primo:
 
@@ -32,7 +32,7 @@ fun main() {
             }
         } else {
             prime = true
-            primeCheck@ for (i in 3 until number step 2) {
+            primeCheck@ for (i in 3..<number step 2) {  //Recorremos a partir del 3 dando saltos de 2. (Sólo comprobamos números impares. El 1 no es primo y el 2 ya lo comprobamos antes).
                 if (number % i == 0) {
                     prime = false
                     break@primeCheck
