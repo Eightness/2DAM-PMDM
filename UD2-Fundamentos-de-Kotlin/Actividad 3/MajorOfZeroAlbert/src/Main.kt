@@ -1,7 +1,9 @@
 /**
- * MinorOfZero. Programa que pida 10 números al usuario y finalmente muestre cuántos son mayores que cero.
+ * MajorOfZero. Programa que pida 10 números al usuario y finalmente muestre cuántos son mayores que cero.
+ *
  * @author Albert Lozano Blasco
  * @version 0.1
+ *
  */
 
 /**

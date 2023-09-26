@@ -1,10 +1,11 @@
 /**
  * Prime. Programa que pida números e indique si son primos o no.
  * Tras comprobar un número e programa preguntará al usuario si se quiere comprobar otro o no.
- * Si dice que sí se volverá a repetir todo lo anterior, si dice que no el programa finalizará.
+ * Si dice que sí, se volverá a repetir todo lo anterior, si dice que no el programa finalizará.
  *
  * @author Albert Lozano Blasco
  * @version 7.8
+ *
  */
 
 /**

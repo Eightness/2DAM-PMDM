@@ -1,8 +1,10 @@
 /**
  * MajorMinorAverage. Programa que pida números hasta que se introduzca el cero.
  * Cuando se introduzca un cero el programa finalizará, pero antes de finalizar el programa indicará el mayor y el menor de los introducidos y la media de todos los números.
+ *
  * @author Albert Lozano Blasco
  * @version 3.3
+ *
  */
 
 /**
@@ -10,7 +12,7 @@
  */
 fun main() {
     //Inicializamos y declaramos variables útiles para el programa.
-    var number = 0
+    var number: Int
     var minor = Int.MAX_VALUE
     var major = Int.MIN_VALUE
     var sum = 0
@@ -37,7 +39,8 @@ fun main() {
     val average: Double = sum.toDouble() / index.toDouble()
 
     //Resultado por pantalla.
-    println("El número más pequeño introducido es: $minor")
-    println("El número más grande introducido es: $major")
-    println("La media de los números introducidos es: $average")
+    println("""|El número más pequeño introducido es: $minor
+               |El número más grande introducido es: $major
+               |La media de los números introducidos es: $average
+            """.trimMargin())
 }
