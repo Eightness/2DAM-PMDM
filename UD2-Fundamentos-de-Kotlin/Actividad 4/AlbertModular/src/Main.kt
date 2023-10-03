@@ -22,7 +22,8 @@
  * Saludará al usuario con nombre "name", que se le pasa como parámetro a la función.
  */
 fun greeting(name: String) {
-
+    val regexName = Regex("^[A-Z][a-z ']+$")
+    val regexName = Regex("^[A-Z][a-z']{0,1}+\\s[A-Z][a-z']+$")
 }
 
 /**
