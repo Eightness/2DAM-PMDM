@@ -13,7 +13,7 @@
 fun main() {
     //Inicializamos y declaramos variables útiles para el programa.
     var number: Int
-    /*
+    /*_
     var minor = Int.MAX_VALUE       En un principio lo hice así, comprobando desde el primer momento.
     var major = Int.MIN_VALUE
     */
