@@ -55,10 +55,6 @@ fun main() {
 
         } while (decision != "fin" && decision != "introducir")
 
-        //Asignamos los números actuales a la lista principal.
-//        currentNumbers.clear()
-//        currentNumbers.addAll(currentNumbers)
-
     } while (continueProgram)
 }
 
