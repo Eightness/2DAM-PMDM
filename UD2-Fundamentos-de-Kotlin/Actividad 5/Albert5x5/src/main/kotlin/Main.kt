@@ -111,10 +111,10 @@ fun menu(): Int {
 fun options(option: Int, matrix: Array<Array<Int>>) {
     when(option) {
         1 -> fillMatrixRandom0To9(matrix, 0, 9)
-        2 -> showMatrix(matrix)
-        3 -> searchNumberInMatrix(matrix, getInt("¿Qué número quieres buscar? "))
-        4 -> addOneToEachPos(matrix)
-        5 -> transposeMatrix(matrix)
+        2 -> if (!isEmpty(matrix)) showMatrix(matrix) else println("La matriz aún no ha sido rellenada, elija la opción 1 primero.")
+        3 -> if (!isEmpty(matrix)) searchNumberInMatrix(matrix, getInt("¿Qué número quieres buscar? ")) else println("La matriz aún no ha sido rellenada, elija la opción 1 primero.")
+        4 -> if (!isEmpty(matrix)) addOneToEachPos(matrix) else println("La matriz aún no ha sido rellenada, elija la opción 1 primero.")
+        5 -> if (!isEmpty(matrix)) transposeMatrix(matrix) else println("La matriz aún no ha sido rellenada, elija la opción 1 primero.")
         0 -> {
             println("¡Muchas gracias por usar mi aplicación, hasta luego!")
             exitProcess(0)
@@ -131,9 +131,14 @@ fun options(option: Int, matrix: Array<Array<Int>>) {
  * @return Devolverá la matriz rellenada.
  */
 fun fillMatrixRandom0To9(matrix: Array<Array<Int>>, minNumber: Int, maxNumber: Int): Array<Array<Int>> {
-    for ((i, _) in matrix)
-        for((j, _) in matrix)
+    val numRows = matrix.size
+    val numCols = matrix[0].size
+
+    for (i in 0 until numRows) {
+        for (j in 0 until numCols) {
             matrix[i][j] = Random.nextInt(minNumber, maxNumber + 1)
+        }
+    }
 
     return matrix
 }
@@ -144,9 +149,10 @@ fun fillMatrixRandom0To9(matrix: Array<Array<Int>>, minNumber: Int, maxNumber: I
  */
 fun showMatrix(matrix: Array<Array<Int>>) {
     println("Matriz:")
-    for ((i, _) in matrix) {
-        for((j, _) in matrix)
-            print("[${matrix[i][j]}] ")
+    for (element in matrix) {
+        for (j in 0 until matrix[0].size) {
+            print("[${element[j]}] ")
+        }
         println()
     }
 }
@@ -159,25 +165,36 @@ fun showMatrix(matrix: Array<Array<Int>>) {
 fun searchNumberInMatrix(matrix: Array<Array<Int>>, number: Int) {
     var found = false
 
-    for ((i, _) in matrix) {
-        for((j, _) in matrix)
+    for (i in matrix.indices) {
+        for (j in 0 until matrix[0].size) {
             if (matrix[i][j] == number) {
                 found = true
-                println("El número $number se ha encontrado en la posicion [$i][$j] ")
+                println("El número $number se ha encontrado en la posición [$i][$j]")
             }
+        }
     }
 
     if (!found) println("No se han encontrado resultados.")
 }
 
 /**
- * Función addOneToEachPos. Se encargará de sumar +1 a cada posición de la matriz y la mostrará por pantalla.
+ * Función addOneToEachPos. Se encargará de sumar +1 a cada posición de la matriz y la mostrará por pantalla. Si la suma da 10, el número de la posición se convertirá en 0.
  * @param matrix Matriz que se le pasará para operar con ella.
  */
 fun addOneToEachPos(matrix: Array<Array<Int>>) {
-    for ((i, _) in matrix)
-        for ((j, _) in matrix)
+    val numRows = matrix.size
+    val numCols = matrix[0].size
+
+    for (i in 0 until numRows) {
+        for (j in 0 until numCols) {
             matrix[i][j] += 1
+
+            //Verificar si la suma es igual o mayor a 10
+            if (matrix[i][j] >= 10) {
+                matrix[i][j] = 0
+            }
+        }
+    }
 
     showMatrix(matrix)
 }
@@ -187,5 +204,32 @@ fun addOneToEachPos(matrix: Array<Array<Int>>) {
  * @param matrix Matriz que se le pasará para realizar la transposición.
  */
 fun transposeMatrix(matrix: Array<Array<Int>>) {
-    println("Hello hehe.")
+    val numRows = matrix.size
+    val numCols = matrix[0].size
+
+    val transposedMatrix = Array(numCols) { Array(numRows) { 0 } }
+
+    for (i in 0 until numRows) {
+        for (j in 0 until numCols) {
+            transposedMatrix[j][i] = matrix[i][j]
+        }
+    }
+
+    showMatrix(transposedMatrix)
+}
+
+/**
+ * Función isEmpty. Se encarga de comprobar si la matriz está llena de 0 (recién generada).
+ * @param matrix Le pasaremos la matriz que queramos comprobar.
+ * @return Devolverá un boolean, true o false.
+ */
+fun isEmpty(matrix: Array<Array<Int>>): Boolean {
+    for (row in matrix) {
+        for (cell in row) {
+            if (cell != 0) {
+                return false //Si encuentra un número distinto de cero, la matriz no está vacía.
+            }
+        }
+    }
+    return true //Si llega aquí, significa que no se encontró ningún número distinto de cero, por lo que devuelve true.
 }
