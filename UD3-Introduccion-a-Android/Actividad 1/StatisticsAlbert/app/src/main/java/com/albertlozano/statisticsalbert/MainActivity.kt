@@ -125,8 +125,10 @@ fun Content() {
             Spacer(modifier = Modifier.width(10.dp))
             Button(
                 onClick = {
-                    if (peopleStatistic > 0) peopleStatistic--
-                    totalStatistics--
+                    if (peopleStatistic > 0) {
+                        peopleStatistic--
+                        totalStatistics--
+                    }
                 }, colors = ButtonDefaults.buttonColors(Color(0xFFF44336))
             ) {
                 Text(
@@ -168,8 +170,10 @@ fun Content() {
             Spacer(modifier = Modifier.width(10.dp))
             Button(
                 onClick = {
-                    if (electricScooterStatistic > 0) electricScooterStatistic--
-                    totalStatistics--
+                    if (electricScooterStatistic > 0) {
+                        electricScooterStatistic--
+                        totalStatistics--
+                    }
                 }, colors = ButtonDefaults.buttonColors(Color(0xFFF44336))
             ) {
                 Text(
@@ -211,8 +215,10 @@ fun Content() {
             Spacer(modifier = Modifier.width(10.dp))
             Button(
                 onClick = {
-                    if (bicycleStatistic > 0) bicycleStatistic--
-                    totalStatistics--
+                    if (bicycleStatistic > 0) {
+                        bicycleStatistic--
+                        totalStatistics--
+                    }
                 }, colors = ButtonDefaults.buttonColors(Color(0xFFF44336))
             ) {
                 Text(
@@ -254,8 +260,10 @@ fun Content() {
             Spacer(modifier = Modifier.width(10.dp))
             Button(
                 onClick = {
-                    if (carStatistic > 0) carStatistic--
-                    totalStatistics--
+                    if (carStatistic > 0) {
+                        carStatistic--
+                        totalStatistics--
+                    }
                 }, colors = ButtonDefaults.buttonColors(Color(0xFFF44336))
             ) {
                 Text(
@@ -277,15 +285,16 @@ fun Content() {
         Spacer(modifier = Modifier.height(20.dp))
         Column {
             Text(
-                text = "Estadísticas:", fontSize = 20.sp
+                text = "Estadísticas:",
+                fontSize = 20.sp,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             if (totalStatistics > 0) {
                 Text(
                     text = """
                         |Personas: ${
                         String.format(
-                            "%.2f",
-                            (peopleStatistic.toDouble() / totalStatistics.toDouble()) * 100
+                            "%.2f", (peopleStatistic.toDouble() / totalStatistics.toDouble()) * 100
                         )
                     } %
                         |Patinetes: ${
@@ -296,14 +305,12 @@ fun Content() {
                     } %
                         |Bicicletas: ${
                         String.format(
-                            "%.2f",
-                            (bicycleStatistic.toDouble() / totalStatistics.toDouble()) * 100
+                            "%.2f", (bicycleStatistic.toDouble() / totalStatistics.toDouble()) * 100
                         )
                     } %
                         |Coches: ${
                         String.format(
-                            "%.2f",
-                            (carStatistic.toDouble() / totalStatistics.toDouble()) * 100
+                            "%.2f", (carStatistic.toDouble() / totalStatistics.toDouble()) * 100
                         )
                     } %
                         """.trimMargin("|"), fontSize = 20.sp
