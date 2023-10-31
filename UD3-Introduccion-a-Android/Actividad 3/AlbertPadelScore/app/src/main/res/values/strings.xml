@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AlbertPadelScore</string>
+    <string name="sets">SETS</string>
+    <string name="games">JUEGOS</string>
+    <string name="current_game">JUEGO ACTUAL</string>
+    <string name="teamA_points">PUNTO EQUIPO A</string>
+    <string name="teamB_points">PUNTO EQUIPO B</string>
+    <string name="reset">RESETEAR</string>
+</resources>

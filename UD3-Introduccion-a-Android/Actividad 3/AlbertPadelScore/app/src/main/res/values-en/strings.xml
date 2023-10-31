@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AlbertPadelScore</string>
+    <string name="sets">SETS</string>
+    <string name="games">GAMES</string>
+    <string name="current_game">CURRENT GAME</string>
+    <string name="teamA_points">POINT TEAM A</string>
+    <string name="teamB_points">POINT TEAM B</string>
+    <string name="reset">RESET</string>
+</resources>
