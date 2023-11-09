@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ProfileAlbert</string>
+    <string name="profileName">Albert Lozano</string>
+    <string name="followButton">Seguir</string>
+    <string name="unfollowButton">Siguiendo</string>
+    <string name="hobby1">Videojuegos</string>
+    <string name="hobby2">Baloncesto</string>
+    <string name="hobby3">Pintar</string>
+    <string name="hobby4">Dibujar</string>
+    <string name="hobby5">Programar</string>
+    <string name="altProfilePic">Foto de perfil</string>
+    <string name="altImage1">Imagen 1</string>
+    <string name="altImage2">Imagen 2</string>
+    <string name="addMessage">+</string>
+    <string name="altIcon1">Icono de videojuegos</string>
+    <string name="altIcon2">Icono de baloncesto</string>
+    <string name="altIcon3">Icono de pintar</string>
+    <string name="altIcon4">Icono de dibujar</string>
+    <string name="altIcon5">Icono 5</string>
+    <string name="altIcon6">Icono 6</string>
+    <string name="altIcon7">Icono del correo</string>
+</resources>

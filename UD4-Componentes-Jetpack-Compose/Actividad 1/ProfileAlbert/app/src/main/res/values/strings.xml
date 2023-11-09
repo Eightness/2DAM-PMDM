@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">ProfileAlbert</string>
+    <string name="profileName">Albert Lozano</string>
+    <string name="followButton">Follow</string>
+    <string name="unfollowButton">Unfollow</string>
+    <string name="hobby1">Video games</string>
+    <string name="hobby2">Basketball</string>
+    <string name="hobby3">Painting</string>
+    <string name="hobby4">Drawing</string>
+    <string name="hobby5">Coding</string>
+    <string name="altProfilePic">Profile Picture</string>
+    <string name="altImage1">Image 1</string>
+    <string name="altImage2">Image 2</string>
+    <string name="altIcon1">Video games icon</string>
+    <string name="altIcon2">Basketball icon</string>
+    <string name="altIcon3">Painting icon</string>
+    <string name="altIcon4">Drawing icon</string>
+    <string name="altIcon5">Coding icon</string>
+    <string name="altIcon6">Like button</string>
+    <string name="altIcon7">Mail icon</string>
+    <string name="addMessage">+</string>
 </resources>
