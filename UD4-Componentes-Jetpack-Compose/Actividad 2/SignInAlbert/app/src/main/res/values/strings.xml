@@ -9,7 +9,7 @@
     <string name="email">Email</string>
     <string name="emailPlaceholder">youremail@server.com</string>
     <string name="phoneNumber">Phone number</string>
-    <string name="phoneNumberPlaceHolder">666 555 444</string>
+    <string name="phoneNumberPlaceHolder">666555444</string>
     <string name="birthDate">Birth date</string>
     <string name="birthDatePlaceholder">01/01/0001</string>
 
