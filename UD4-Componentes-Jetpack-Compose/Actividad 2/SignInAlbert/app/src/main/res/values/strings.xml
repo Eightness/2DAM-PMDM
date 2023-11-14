@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">SignInAlbert</string>
+
+    <string name="personalData">PERSONAL DATA</string>
+    <string name="name">Name</string>
+    <string name="namePlaceholder">John</string>
+    <string name="surnames">Surnames</string>
+    <string name="surnamesPlaceholder">Smith Jones</string>
+    <string name="email">Email</string>
+    <string name="emailPlaceholder">youremail@server.com</string>
+    <string name="phoneNumber">Phone number</string>
+    <string name="phoneNumberPlaceHolder">666 555 444</string>
+    <string name="birthDate">Birth date</string>
+    <string name="birthDatePlaceholder">01/01/0001</string>
+
+    <string name="interests">INTERESTS</string>
+    <string name="videogames">Videogames</string>
+    <string name="sports">Sports</string>
+    <string name="series">Series</string>
+    <string name="cinema">Cinema</string>
+    <string name="coding">Coding</string>
+    <string name="boardGames">Board games</string>
+    <string name="interested">Interested</string>
+    <string name="notInterested">Not interested</string>
+
+    <string name="resetButton">Reset</string>
+    <string name="sendButton">Send</string>
+    <string name="sentInfo">Sent successfully</string>
+    <string name="notSent">Something failed</string>
+    <string name="incorrectData">Incorrect or incomplete data supplied</string>
+
+    <string name="appMadeBy">App made by</string>
+    <string name="author">Albert Lozano.</string>
 </resources>

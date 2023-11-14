@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SignInAlbert</string>
+    <string name="personalData">DADES PERSONALS</string>
+    <string name="name">Nom</string>
+    <string name="namePlaceholder">Joan</string>
+    <string name="surnames">Cognoms</string>
+    <string name="surnamesPlaceholder">Orts Soldevila</string>
+    <string name="email">Email</string>
+    <string name="emailPlaceholder">teuadireccio@server.com</string>
+    <string name="phoneNumber">Nombre de telèfon</string>
+    <string name="phoneNumberPlaceHolder">666 555 444</string>
+    <string name="birthDate">Data de naixement</string>
+    <string name="birthDatePlaceholder">01/01/0001</string>
+    <string name="interests">INTERESSOS</string>
+    <string name="videogames">Videojocs</string>
+    <string name="sports">Esports</string>
+    <string name="series">Series</string>
+    <string name="cinema">Cinema</string>
+    <string name="coding">Progrmació</string>
+    <string name="boardGames">Jocs de taula</string>
+    <string name="resetButton">Reiniciar</string>
+    <string name="sendButton">Enviar</string>
+    <string name="sentInfo">Enviat amb èxit</string>
+    <string name="appMadeBy">Aplicació feta per</string>
+    <string name="author">Albert Lozano.</string>
+    <string name="interested">Interessat</string>
+    <string name="notInterested">No interessat</string>
+    <string name="incorrectData">Informació proporcionada incorrecta o incompleta</string>
+    <string name="notSent">Algo ha fallat</string>
+</resources>

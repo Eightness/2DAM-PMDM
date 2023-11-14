@@ -5,29 +5,37 @@
 
 package com.albertlozano.signinalbert.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedFilterChip
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,9 +43,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -51,35 +63,137 @@ import com.albertlozano.signinalbert.R
  */
 @Composable
 fun SignIn() {
-    Column (
+    //Variable to save Vertical Scroll state
+    val scrollState = rememberScrollState()
+
+    //Data variables
+    var name by rememberSaveable { mutableStateOf("") }
+    var surnames by rememberSaveable { mutableStateOf("") }
+    var email by rememberSaveable { mutableStateOf("") }
+    var phoneNumber by rememberSaveable { mutableStateOf("") }
+    var birthDate by rememberSaveable { mutableStateOf("") }
+
+    //Interests variables
+    var selectedItemsList by rememberSaveable { mutableStateOf(List(6) { false }) }
+
+    //Interests variables
+    val videogames =
+        if (selectedItemsList[0]) stringResource(id = R.string.interested) else stringResource(id = R.string.notInterested)
+    val sports =
+        if (selectedItemsList[1]) stringResource(id = R.string.interested) else stringResource(id = R.string.notInterested)
+    val series =
+        if (selectedItemsList[2]) stringResource(id = R.string.interested) else stringResource(id = R.string.notInterested)
+    val cinema =
+        if (selectedItemsList[3]) stringResource(id = R.string.interested) else stringResource(id = R.string.notInterested)
+    val coding =
+        if (selectedItemsList[4]) stringResource(id = R.string.interested) else stringResource(id = R.string.notInterested)
+    val boardGames =
+        if (selectedItemsList[5]) stringResource(id = R.string.interested) else stringResource(id = R.string.notInterested)
+
+    //Variables to control the state of Alert Dialog
+    var showDialog by rememberSaveable { mutableStateOf(false) }
+    val correctData = validateData(name, surnames, email, phoneNumber, birthDate)
+    val dialogMessageCorrect = if (correctData) {
+        """|${stringResource(id = R.string.personalData)}
+            |${stringResource(id = R.string.name)}: $name
+            |${stringResource(id = R.string.surnames)}: $surnames
+            |${stringResource(id = R.string.email)}: $email
+            |${stringResource(id = R.string.phoneNumber)}: $phoneNumber
+            |${stringResource(id = R.string.birthDate)}: $birthDate
+            |
+            |${stringResource(id = R.string.interests)}
+            |${stringResource(id = R.string.videogames)}: $videogames
+            |${stringResource(id = R.string.sports)}: $sports
+            |${stringResource(id = R.string.series)}: $series
+            |${stringResource(id = R.string.cinema)}: $cinema
+            |${stringResource(id = R.string.coding)}: $coding
+            |${stringResource(id = R.string.boardGames)}: $boardGames
+        """.trimMargin("|")
+    } else stringResource(id = R.string.incorrectData)
+    val titleMessage =
+        if (correctData) stringResource(id = R.string.sentInfo) else stringResource(id = R.string.notSent)
+
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(20.dp)
-            .background(colorResource(id = R.color.white)),
+            .background(colorResource(id = R.color.white))
+            .verticalScroll(scrollState),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
+        //Personal data
         Text(
-            text = "DATOS PERSONALES",
-            fontSize = 25.sp,
-            fontWeight = FontWeight.Bold
+            text = stringResource(id = R.string.personalData),
+            fontSize = 21.sp,
+            fontWeight = FontWeight.Bold,
+            color = colorResource(id = R.color.delftBlue)
         )
-        Spacer(modifier = Modifier.height(25.dp))
-        //Text attributes fields
-        Row {
-            SignInTexts()
-        }
-        //Elements
-        Row {
 
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Row {
+            CustomDataFields(
+                onNameChanged = { name = it },
+                onSurnameChanged = { surnames = it },
+                onEmailChanged = { email = it },
+                onPhoneNumberChanged = { phoneNumber = it },
+                onBirthDateChanged = { birthDate = it }
+            )
         }
+        Spacer(modifier = Modifier.height(25.dp))
+
+        //Interests
+        Text(
+            text = stringResource(id = R.string.interests),
+            fontSize = 21.sp,
+            fontWeight = FontWeight.Bold,
+            color = colorResource(id = R.color.delftBlue)
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Row {
+            selectedItemsList = customInterests()
+        }
+        Spacer(modifier = Modifier.height(25.dp))
+
         //Buttons
         Row {
+            CustomButtons(
+                stringResource(id = R.string.resetButton),
+                stringResource(id = R.string.sendButton),
+                onResetClick = {
+                    name = ""
+                    surnames = ""
+                    email = ""
+                    phoneNumber = ""
+                    birthDate = ""
 
+                    selectedItemsList = List(6) { false }
+                },
+                onSendClick = {
+                    showDialog = true
+                }
+            )
+            if (showDialog) {
+                CustomAlertDialog(
+                    titleMessage,
+                    dialogMessageCorrect,
+                    onCloseDialog = {
+                        showDialog = false
+                    }
+                )
+            }
         }
+        Spacer(modifier = Modifier.height(20.dp))
+
         //Information
         Row {
-
+            CustomAuthorInfo(
+                painterResource(id = R.drawable.profilepic),
+                stringResource(id = R.string.appMadeBy),
+                stringResource(id = R.string.author)
+            )
         }
     }
 }
@@ -89,47 +203,115 @@ fun SignIn() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignInText(text: String, label: String, placeholder: String, leadingIcon: ImageVector, trailingIcon: ImageVector) {
+fun CustomDataField(
+    label: String,
+    placeholder: String,
+    leadingIcon: ImageVector,
+    trailingIcon: ImageVector,
+    onValueChanged: (String) -> Unit
+) {
     var textFieldValue by rememberSaveable { mutableStateOf("") }
-    Row (
 
-    ){
-        Column (
-            modifier = Modifier
-                .fillMaxWidth(),
+    Row {
+        Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            Text(
-                text = text
+        ) {
+            Spacer(modifier = Modifier.height(24.dp))
+            Icon(
+                imageVector = leadingIcon,
+                contentDescription = null,
+                tint = colorResource(id = R.color.delftBlue)
             )
+        }
 
-            Spacer(modifier = Modifier.width(5.dp))
+        Spacer(modifier = Modifier.width(25.dp))
 
-            TextField(
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            OutlinedTextField(
                 value = textFieldValue,
-                onValueChange = { textFieldValue = it},
-                label = { Text(label)},
-                placeholder = { Text(text = placeholder)},
-                leadingIcon = { Icon(imageVector = leadingIcon, contentDescription = null)},
-                trailingIcon = { Icon(imageVector = trailingIcon, contentDescription = null)}
+                onValueChange = {
+                    textFieldValue = it
+                    onValueChanged(it)
+                },
+                label = {
+                    Text(
+                        text = label,
+                        color = colorResource(id = R.color.uclaBlue)
+                    )
+                },
+                placeholder = {
+                    Text(
+                        text = placeholder,
+                        color = colorResource(id = R.color.powderBlue)
+                    )
+                },
+                trailingIcon = {
+                    Icon(
+                        imageVector = trailingIcon, contentDescription = null, tint = colorResource(
+                            id = R.color.delftBlue
+                        )
+                    )
+                }
             )
         }
     }
 }
 
 @Composable
-fun SignInTexts() {
-    Column {
-        SignInText(text = "Nombre:", label = "Introduce tu nombre", placeholder = "Juanito", leadingIcon = Icons.Default.AccountCircle, trailingIcon = Icons.Default.Create)
+fun CustomDataFields(
+    onNameChanged: (String) -> Unit,
+    onSurnameChanged: (String) -> Unit,
+    onEmailChanged: (String) -> Unit,
+    onPhoneNumberChanged: (String) -> Unit,
+    onBirthDateChanged: (String) -> Unit,
+) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CustomDataField(
+            label = stringResource(id = R.string.name),
+            placeholder = stringResource(id = R.string.namePlaceholder),
+            leadingIcon = Icons.Default.AccountCircle,
+            trailingIcon = Icons.Default.Create,
+            onValueChanged = onNameChanged
+        )
         Spacer(modifier = Modifier.height(15.dp))
-        SignInText(text = "Apellidos:", label = "Introduce tus apellidos", placeholder = "López García", leadingIcon = Icons.Default.Edit, trailingIcon = Icons.Default.Create)
+        CustomDataField(
+            label = stringResource(id = R.string.surnames),
+            placeholder = stringResource(id = R.string.surnamesPlaceholder),
+            leadingIcon = Icons.Default.Info,
+            trailingIcon = Icons.Default.Create,
+            onValueChanged = onSurnameChanged
+        )
         Spacer(modifier = Modifier.height(15.dp))
-        SignInText(text = "Email:", label = "Introduce tu email", placeholder = "tudireccion@server.com", leadingIcon = Icons.Default.Email, trailingIcon = Icons.Default.Create)
+        CustomDataField(
+            label = stringResource(id = R.string.email),
+            placeholder = stringResource(id = R.string.emailPlaceholder),
+            leadingIcon = Icons.Default.Email,
+            trailingIcon = Icons.Default.Create,
+            onValueChanged = onEmailChanged
+        )
         Spacer(modifier = Modifier.height(15.dp))
-        SignInText(text = "Teléfono:", label = "Introduce tu número de teléfono", placeholder = "123456789", leadingIcon = Icons.Default.Call, trailingIcon = Icons.Default.Create)
+        CustomDataField(
+            label = stringResource(id = R.string.phoneNumber),
+            placeholder = stringResource(id = R.string.phoneNumberPlaceHolder),
+            leadingIcon = Icons.Default.Call,
+            trailingIcon = Icons.Default.Create,
+            onValueChanged = onPhoneNumberChanged
+        )
         Spacer(modifier = Modifier.height(15.dp))
-        SignInText(text = "Fecha de nacimiento:", label = "Introduce tu fecha de nacimiento", placeholder = "01/01/0001", leadingIcon = Icons.Default.DateRange, trailingIcon = Icons.Default.Create)
+        CustomDataField(
+            label = stringResource(id = R.string.birthDate),
+            placeholder = stringResource(id = R.string.birthDatePlaceholder),
+            leadingIcon = Icons.Default.DateRange,
+            trailingIcon = Icons.Default.Create,
+            onValueChanged = onBirthDateChanged
+        )
         Spacer(modifier = Modifier.height(15.dp))
     }
 }
@@ -137,34 +319,197 @@ fun SignInTexts() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignInElement() {
-    FilterChip(
-        selected = true,
-        onClick = { /*TODO*/ },
-        label = { /*TODO*/ })
+fun customInterest(interestName: String, leadingIcon: ImageVector): Boolean {
+    var isSelected by rememberSaveable { mutableStateOf(false) }
+
+    ElevatedFilterChip(
+        selected = isSelected,
+        onClick = { isSelected = !isSelected },
+        label = { Text(text = interestName) },
+        leadingIcon = {
+            if (isSelected) {
+                Icon(
+                    imageVector = leadingIcon,
+                    contentDescription = null,
+                    modifier = Modifier.size(FilterChipDefaults.IconSize)
+                )
+            }
+        }
+    )
+
+    return isSelected
 }
 
 @Composable
-fun SignInElements() {
-    
+fun customInterests(): List<Boolean> {
+    var selectedItemsList by rememberSaveable { mutableStateOf(List(6) { false }) }
+
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row {
+            selectedItemsList = selectedItemsList.toMutableList().apply {
+                set(0, customInterest(stringResource(id = R.string.videogames), Icons.Default.Done))
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+
+            selectedItemsList = selectedItemsList.toMutableList().apply {
+                set(1, customInterest(stringResource(id = R.string.sports), Icons.Default.Done))
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+
+            selectedItemsList = selectedItemsList.toMutableList().apply {
+                set(2, customInterest(stringResource(id = R.string.series), Icons.Default.Done))
+            }
+        }
+
+        Row {
+            selectedItemsList = selectedItemsList.toMutableList().apply {
+                set(3, customInterest(stringResource(id = R.string.cinema), Icons.Default.Done))
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+
+            selectedItemsList = selectedItemsList.toMutableList().apply {
+                set(4, customInterest(stringResource(id = R.string.coding), Icons.Default.Done))
+            }
+            Spacer(modifier = Modifier.width(10.dp))
+
+            selectedItemsList = selectedItemsList.toMutableList().apply {
+                set(5, customInterest(stringResource(id = R.string.boardGames), Icons.Default.Done))
+            }
+        }
+    }
+
+    return selectedItemsList
 }
 
 //--------------------------------------------------------------------------------------------------
 
 @Composable
-fun SignInButton() {
-    
-}
-
-@Composable
-fun SignInButtons() {
-    
+fun CustomButtons(
+    resetButtonText: String,
+    sendButtonText: String,
+    onResetClick: () -> Unit,
+    onSendClick: () -> Unit,
+) {
+    Row {
+        //Reset button
+        Button(
+            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.delftBlue)),
+            onClick = {
+                onResetClick()
+            }
+        ) {
+            Text(
+                text = resetButtonText
+            )
+        }
+        Spacer(modifier = Modifier.width(10.dp))
+        //Send button
+        Button(
+            colors = ButtonDefaults.buttonColors(colorResource(id = R.color.delftBlue)),
+            onClick = {
+                onSendClick()
+            }
+        ) {
+            Text(
+                text = sendButtonText
+            )
+        }
+    }
 }
 
 //--------------------------------------------------------------------------------------------------
 
 @Composable
-fun SignInInfo() {
-
+fun CustomAuthorInfo(authorPic: Painter, appMadeBy: String, author: String) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = authorPic,
+            contentDescription = null,
+            modifier = Modifier
+                .clip(CircleShape)
+                .height(50.dp)
+                .width(50.dp),
+            contentScale = ContentScale.Crop
+        )
+    }
+    Spacer(modifier = Modifier.width(10.dp))
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(3.dp))
+        Text(
+            text = appMadeBy,
+            fontSize = 15.sp
+        )
+        Text(
+            text = author,
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Bold
+        )
+    }
 }
+
+//--------------------------------------------------------------------------------------------------
+
+@Composable
+fun CustomAlertDialog(
+    titleMessage: String,
+    dialogMessage: String,
+    onCloseDialog: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = {
+            onCloseDialog()
+        },
+        title = {
+            Text(text = titleMessage)
+        },
+        text = {
+            Text(
+                text = dialogMessage
+            )
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    onCloseDialog()
+                }
+            ) {
+                Text(text = "OK")
+            }
+        }
+    )
+}
+
+//--------------------------------------------------------------------------------------------------
+
+fun validateData(
+    name: String,
+    surnames: String,
+    email: String,
+    phoneNumber: String,
+    birthDate: String
+): Boolean {
+    val nameRegex = Regex(".+")
+    val surnamesRegex = Regex("^[a-zA-Z]+( [a-zA-Z]+)*\$")
+    val emailRegex = Regex("^[A-Za-z](.*)(@)(.+)(\\.)(.+)")
+    val phoneNumberRegex = Regex("^\\d{9}$")
+    val birthDateRegex = Regex("^\\d{2}/\\d{2}/\\d{4}$")
+
+    val isNameValid = name.matches(nameRegex)
+    val isSurnamesValid = surnames.matches(surnamesRegex)
+    val isEmailValid = email.matches(emailRegex)
+    val isPhoneNumberValid = phoneNumber.matches(phoneNumberRegex)
+    val isBirthDateValid = birthDate.matches(birthDateRegex)
+
+    return isNameValid && isSurnamesValid && isEmailValid && isPhoneNumberValid && isBirthDateValid
+}
+
 
