@@ -94,6 +94,7 @@ fun SignIn() {
     //Variables to control the state of Alert Dialog
     var showDialog by rememberSaveable { mutableStateOf(false) }
     val correctData = validateData(name, surnames, email, phoneNumber, birthDate)
+
     val titleMessage =
         if (correctData) stringResource(id = R.string.sentInfo) else stringResource(id = R.string.notSent)
     val dialogMessageCorrect = if (correctData) {
@@ -299,8 +300,25 @@ fun SignIn() {
                 }
             }
             if (showDialog) {
-                CustomAlertDialog(titleMessage, dialogMessageCorrect, onCloseDialog = {
+                AlertDialog(onDismissRequest = {
+                    //Callback when the Alert Dialog is dismissed
                     showDialog = false
+                }, title = {
+                    //Display the title message
+                    Text(text = titleMessage)
+                }, text = {
+                    //Display the main content message
+                    Text(
+                        text = dialogMessageCorrect
+                    )
+                }, confirmButton = {
+                    //OK button to close the Alert Dialog
+                    Button(onClick = {
+                        // Callback when the OK button is clicked
+                        showDialog = false
+                    }) {
+                        Text(text = "OK")
+                    }
                 })
             }
         }
@@ -463,53 +481,17 @@ fun CustomAuthorInfo(
         Spacer(modifier = Modifier.height(3.dp))
         //Display the text indicating who made the app
         Text(
-            text = appMadeBy, fontSize = 15.sp
+            text = authorName, fontSize = 15.sp
         )
         //Display the author's name
         Text(
-            text = authorName, fontSize = 15.sp, fontWeight = FontWeight.Bold
+            text = appMadeBy, fontSize = 15.sp, fontWeight = FontWeight.Bold
         )
     }
 }
 
-//--------------------------------------------------------------------------------------------------
 
-/**
- * Function CustomAlertDialog. Contains an Alert Dialog with custom parameters.
- *
- * @param titleMessage The message displayed in the title of the Alert Dialog.
- * @param dialogMessage The main content message displayed in the Alert Dialog.
- * @param onCloseDialog Callback function triggered when the Alert Dialog is closed.
- */
-@Composable
-fun CustomAlertDialog(
-    titleMessage: String,
-    dialogMessage: String,
-    onCloseDialog: () -> Unit
-) {
-    //Alert Dialog with custom parameters
-    AlertDialog(onDismissRequest = {
-        //Callback when the Alert Dialog is dismissed
-        onCloseDialog()
-    }, title = {
-        //Display the title message
-        Text(text = titleMessage)
-    }, text = {
-        //Display the main content message
-        Text(
-            text = dialogMessage
-        )
-    }, confirmButton = {
-        //OK button to close the Alert Dialog
-        Button(onClick = {
-            // Callback when the OK button is clicked
-            onCloseDialog()
-        }) {
-            Text(text = "OK")
-        }
-    })
-}
-
+//UTILITY
 //--------------------------------------------------------------------------------------------------
 
 /**
