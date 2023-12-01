@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Dragon Ball App</string>
+    <string name="welcome_message">Welcome to my Dragon Ball encyclopedia!</string>
+    <string name="infoapp">You will be able to see all the information about this series characters. Get to know better your favourite ones go find the Dragon Balls together with them!</string>
+    <string name="other_names">Does not have other names</string>
+    <string name="birthday_year">Birthday Year unavailable</string>
 </resources>

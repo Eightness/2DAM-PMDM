@@ -26,10 +26,7 @@ import com.albertlozano.rickmortycardsalbert.navigation.Routes
 @Composable
 fun FourthOnBoard(navController: NavController) {
     var name by rememberSaveable { mutableStateOf("") }
-    val checkName = Regex("^[a-zA-Z]{3,}+\$")
-    Column {
-
-    }
+    val checkName = Regex("^[A-Z][a-zA-Z]+$")   //Must have 2 letters at least and the first one must be upper case.
     Column (
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -37,8 +34,8 @@ fun FourthOnBoard(navController: NavController) {
         TextField(
             value = name,
             onValueChange = { name = it },
-            label = {  },
-            placeholder = {  }
+            label = { Text(text = stringResource(R.string.your_name)) },
+            placeholder = { Text(text = stringResource(R.string.name_placeholder)) }
         )
         Button(
             onClick = { navController.navigate(route = Routes.FirstScreen.route)},

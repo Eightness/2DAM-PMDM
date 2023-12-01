@@ -14,4 +14,6 @@
     <string name="continue_button">Continue</string>
     <string name="choose_and_fight">Choose and fight</string>
     <string name="peace_between_worlds">Peace between worlds</string>
+    <string name="your_name">Your name</string>
+    <string name="name_placeholder">Harry</string>
 </resources>

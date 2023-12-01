@@ -15,4 +15,6 @@
     <string name="continue_button">Continuar</string>
     <string name="choose_and_fight">Elegeix i lluita</string>
     <string name="peace_between_worlds">Pau entre els móns</string>
+    <string name="your_name">El teu nom</string>
+    <string name="name_placeholder">Arnau</string>
 </resources>

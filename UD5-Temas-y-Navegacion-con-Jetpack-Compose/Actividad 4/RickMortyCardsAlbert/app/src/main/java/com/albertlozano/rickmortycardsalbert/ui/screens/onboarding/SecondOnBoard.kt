@@ -6,13 +6,11 @@
 package com.albertlozano.rickmortycardsalbert.ui.screens.onboarding
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,17 +27,12 @@ import com.albertlozano.rickmortycardsalbert.navigation.Routes
 fun SecondOnBoard(navController: NavController) {
     LazyColumn (
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
         content = {
             item {
                 Cards()
                 Row {
-                    Button(onClick = { navController.navigate(route = Routes.FourthOnBoard.route) }) {
-                        Text(text = stringResource(R.string.skip))
-                    }
-                    Spacer(modifier = Modifier.width(25.dp))
-                    Button(onClick = { navController.navigate(route = Routes.FourthOnBoard.route) }) {
-                        Text(text = stringResource(R.string.next))
-                    }
+                    SkipAndNextButtons(navController = navController, skipRoute = Routes.FourthOnBoard.route, nextRoute = Routes.ThirdOnBoard.route)
                 }
             }
         }
@@ -48,8 +41,8 @@ fun SecondOnBoard(navController: NavController) {
 
 @Composable
 fun Cards() {
+    Spacer(modifier = Modifier.height(15.dp))
     Text(text = stringResource(R.string.choose_and_fight), fontSize = 25.sp)
-
     Spacer(modifier = Modifier.height(15.dp))
     Image(painter = painterResource(id = R.drawable.card1), contentDescription = "")
     Spacer(modifier = Modifier.height(15.dp))

@@ -6,6 +6,7 @@
 package com.albertlozano.rickmortycardsalbert.ui.screens.onboarding
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,7 +27,8 @@ import com.albertlozano.rickmortycardsalbert.navigation.Routes
 @Composable
 fun ThirdOnBoard(navController: NavController) {
     Column (
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         PeaceBetweenWorlds()
         Row {

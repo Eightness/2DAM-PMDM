@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Dragon Ball App</string>
+    <string name="welcome_message">Benvingut/da a la meua aplicació de Bola del Drac!</string>
+    <string name="infoapp">Ací podràs veure tota la informació sobre els personatges d\'aquesta serie. Endinsa\'t, coneix millor als teus personatges favorits i aneu a buscar les boles del drac junts!</string>
+    <string name="other_names">No té altres noms</string>
+    <string name="birthday_year">Any de naixement no disponible</string>
 </resources>

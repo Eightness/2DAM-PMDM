@@ -15,4 +15,6 @@
     <string name="continue_button">Continuar</string>
     <string name="choose_and_fight">Haz tus elecciones y pelea</string>
     <string name="peace_between_worlds">Paz entre los mundos</string>
+    <string name="your_name">Tu nombre</string>
+    <string name="name_placeholder">Juanito</string>
 </resources>

@@ -10,6 +10,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -36,7 +37,7 @@ import kotlinx.coroutines.delay
 fun SplashScreen(navController: NavHostController) {
     LaunchedEffect(key1 = true) {
         delay(3000)
-        navController.popBackStack() // Evitar volver a la Splash Screen
+        navController.popBackStack()    //So we can't get back to this screen.
         navController.navigate(Routes.FirstOnBoard.route)
     }
 
@@ -55,16 +56,12 @@ fun Splash() {
             contentDescription = stringResource(R.string.my_photo),
             modifier = Modifier
                 .clip(CircleShape)
-                .size(125.dp)
-                .border(
-                    width = 3.dp,
-                    color = colorResource(id = R.color.black),
-                    shape = CircleShape
-                )
+                .size(150.dp)
                 .height(100.dp)
                 .width(100.dp),
             contentScale = ContentScale.Crop
         )
+        Spacer(modifier = Modifier.height(25.dp))
         Text(
             stringResource(R.string.my_name),
             fontSize = 30.sp,
