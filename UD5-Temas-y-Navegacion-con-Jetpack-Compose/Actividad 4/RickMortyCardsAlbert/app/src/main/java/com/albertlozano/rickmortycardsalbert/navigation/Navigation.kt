@@ -9,7 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.albertlozano.rickmortycardsalbert.ui.screens.mainscreen.RickMortyCardsScreen
+import com.albertlozano.rickmortycardsalbert.ui.screens.mainscreen.FirstScreen
+import com.albertlozano.rickmortycardsalbert.ui.screens.mainscreen.SecondScreen
 import com.albertlozano.rickmortycardsalbert.ui.screens.onboarding.FirstOnBoard
 import com.albertlozano.rickmortycardsalbert.ui.screens.onboarding.FourthOnBoard
 import com.albertlozano.rickmortycardsalbert.ui.screens.onboarding.SecondOnBoard
@@ -26,8 +27,11 @@ fun Navigation() {
         composable(Routes.SplashScreen.route) {
             SplashScreen(navController = navController)
         }
-        composable(Routes.RickMortyCardsScreen.route) {
-            RickMortyCardsScreen(navController = navController)
+        composable(Routes.FirstScreen.route) {
+            FirstScreen(navController = navController)
+        }
+        composable(Routes.SecondScreen.route) {
+            SecondScreen(navController = navController)
         }
         composable(Routes.FirstOnBoard.route) {
             FirstOnBoard(navController = navController)

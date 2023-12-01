@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,9 +35,9 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(navController: NavHostController) {
     LaunchedEffect(key1 = true) {
-        delay(5000)
+        delay(3000)
         navController.popBackStack() // Evitar volver a la Splash Screen
-        navController.navigate(Routes.RickMortyCardsScreen.route)
+        navController.navigate(Routes.FirstOnBoard.route)
     }
 
     Splash()
@@ -50,8 +51,8 @@ fun Splash() {
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
-            contentDescription = "my photo",
+            painter = painterResource(id = R.drawable.myphoto),
+            contentDescription = stringResource(R.string.my_photo),
             modifier = Modifier
                 .clip(CircleShape)
                 .size(125.dp)
@@ -65,7 +66,7 @@ fun Splash() {
             contentScale = ContentScale.Crop
         )
         Text(
-            "Albert Lozano",
+            stringResource(R.string.my_name),
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold
         )

@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">RickMortyCardsAlbert</string>
+    <string name="my_photo">My photo</string>
+    <string name="my_name">Albert Lozano</string>
+    <string name="rick_and_morty_logo">Rick and Morty logo</string>
+    <string name="dropdown_icon">Dropdown icon</string>
+    <string name="main">Main</string>
+    <string name="team">Team</string>
+    <string name="rick_and_morty_portal">Rick and Morty portal</string>
+    <string name="start_game">Start game</string>
+    <string name="select_your_characters">Select your characters</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="continue_button">Continue</string>
+    <string name="choose_and_fight">Choose and fight</string>
+    <string name="peace_between_worlds">Peace between worlds</string>
 </resources>
