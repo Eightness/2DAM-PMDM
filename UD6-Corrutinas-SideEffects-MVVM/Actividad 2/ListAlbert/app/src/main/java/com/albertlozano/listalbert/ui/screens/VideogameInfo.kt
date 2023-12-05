@@ -1,7 +1,9 @@
 package com.albertlozano.listalbert.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +26,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,8 +44,7 @@ fun VideogameInfo(
     videogameViewModel: VideogameViewModel
 ) {
     val videogame: Videogame by videogameViewModel.selectedVideogame.observeAsState(Videogame())
-    val favoriteState: Boolean by videogameViewModel.favoriteState.observeAsState(initial = false)
-    
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -48,7 +52,7 @@ fun VideogameInfo(
             .padding(8.dp)
     ) {
         Row(
-            modifier = Modifier.clickable { 
+            modifier = Modifier.clickable {
                 navController.popBackStack()
             }
         ){
@@ -77,27 +81,28 @@ fun VideogameInfo(
         
         Spacer(modifier = Modifier.height(20.dp))
         
+        Text(
+            text = videogame.company,
+            fontSize = 16.sp
+        )
+
         Row {
-            Text(
-                text = videogame.company,
-                fontSize = 16.sp
-            )
-            Spacer(modifier = Modifier.width(220.dp))
+            Spacer(modifier = Modifier.width(300.dp))
             Button(
                 onClick = {
-                    videogame.favorite = !videogame.favorite
-                    //videogameViewModel.onFavoriteButtonClicked(videogame)
+                    videogameViewModel.onFavoriteButtonClicked()
                 },
                 colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.onPrimary)
             ) {
                 Icon(
                     imageVector = Icons.Default.Star,
                     contentDescription = "favorito",
-                    tint = if (!videogame.favorite) Color.DarkGray else Color(0xFFFB8C00)
+                    tint = if (videogame.favorite) Color(0xFFFB8C00) else Color.DarkGray
                 )
             }
         }
-        
+
+
         Spacer(modifier = Modifier.height(20.dp))
 
         Row(

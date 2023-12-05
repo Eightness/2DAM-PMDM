@@ -1,5 +1,6 @@
 package com.albertlozano.listalbert.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,10 +21,6 @@ class VideogameViewModel : ViewModel() {
     //Variable that indicates that we are obtaining data from repository
     private var _isLoading = MutableLiveData<Boolean>()
     var isLoading: LiveData<Boolean> = _isLoading
-
-    //Variable that indicates if a videogame is selected as favorite or not.
-    private val _favoriteState = MutableLiveData<Boolean>()
-    val favoriteState: LiveData<Boolean> = _favoriteState
 
     //When instantiating an object VideogameViewModel and calling the constructor, this block will execute:
     init {
@@ -46,9 +43,19 @@ class VideogameViewModel : ViewModel() {
         _selectedVideogame.value = videogame
     }
 
-    fun onFavoriteButtonClicked(videogame: Videogame) {
-        videogame.favorite = !videogame.favorite
-        _favoriteState.value = videogame.favorite
+    fun onFavoriteButtonClicked() {
+        val auxVideogame = _selectedVideogame.value?.copy()
+        auxVideogame?.favorite = !auxVideogame?.favorite!!
+        _selectedVideogame.value = auxVideogame
+
+        val auxList = mutableListOf<Videogame>()
+        _videogames.value?.map { videogame ->
+            if (auxVideogame.title == videogame.title) {
+                videogame.favorite = !videogame.favorite
+            }
+            auxList.add(videogame)
+        }
+        _videogames.value = auxList
     }
 
 //    fun increaseStock(quantity: Int) {
