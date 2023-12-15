@@ -14,14 +14,6 @@ import kotlinx.coroutines.launch
 
 class WorkoutViewModel : ViewModel() {
     //Attributes.
-    //User's name.
-    private val _userName = MutableLiveData<String>()
-    val userName: LiveData<String> = _userName
-
-    //Number of repetitions.
-    private val _numRepetitions = MutableLiveData<Int>()
-    val numRepetitions: LiveData<Int> = _numRepetitions
-
     //Current exercise.
     private val _currentExercise = MutableLiveData<Int>()
     val currentExercise: LiveData<Int> = _currentExercise
@@ -39,18 +31,8 @@ class WorkoutViewModel : ViewModel() {
         }
     }
 
-    //Method to update user's name.
-    fun updateUserName(userName: String) {
-        _userName.value = userName
-    }
-
-    //Method to update number of repetitions.
-    fun updateNumRepetitions(numRepetitions: Int) {
-        _numRepetitions.value = numRepetitions
-    }
-
     //Method to start exercise.
-    fun startExercise() {
+    fun startExercise(numRepetitions: Int, updateNumRepetitions: Unit) {
         //Create a drawables' list that contains all gifs.
         //Update isExercising to indicate that an exercise is being made.
         //Update currentExercise with a random drawable from the previous list.
@@ -59,13 +41,12 @@ class WorkoutViewModel : ViewModel() {
             while(_isExercising.value == true) {
                 //Waits 2 seconds.
                 delay(2000)
-                if (_numRepetitions.value != 0) {
+                if (numRepetitions != 0) {
                     //Subtracts one from numRepetitions.
-                    updateNumRepetitions(_numRepetitions.value?.minus(1)!!)
+                    updateNumRepetitions
                 } else {
                     //Restarts numRepetitions
                     //Updates currentExercise with a random drawable from the previous list.
-
                 }
             }
         }
