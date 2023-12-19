@@ -31,6 +31,16 @@ class WorkoutViewModel : ViewModel() {
         }
     }
 
+    //Method to update currentExercise
+    fun updateCurrentExercise(currentExercise: Int) {
+        this._currentExercise.value = currentExercise
+    }
+
+    //Method to update isExercising
+    fun updateIsExercising(isExercising: Boolean) {
+        this._isExercising.value = isExercising
+    }
+
     //Method to start exercise.
     fun startExercise(numRepetitions: Int, updateNumRepetitions: Unit) {
         //Create a drawables' list that contains all gifs.
