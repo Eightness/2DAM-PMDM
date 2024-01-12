@@ -22,11 +22,11 @@ fun Navigation(productViewModel: ProductViewModel) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Routes.MainScreen.route
+        startDestination = Routes.SplashScreen.route
     ) {
         //Splash Screen
         composable(Routes.SplashScreen.route) {
-            SplashScreen(navController, productViewModel)
+            SplashScreen(navController)
         }
 
         //On Boarding
