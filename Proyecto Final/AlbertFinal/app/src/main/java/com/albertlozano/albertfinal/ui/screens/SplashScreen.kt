@@ -1,89 +1,90 @@
+/**
+ * @author Albert Lozano Blasco
+ * @version 2.1
+ */
+
 package com.albertlozano.albertfinal.ui.screens
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.albertlozano.albertfinal.R
 import com.albertlozano.albertfinal.navigation.Routes
-import com.albertlozano.albertfinal.viewmodel.ProductViewModel
+import com.albertlozano.albertfinal.viewmodel.MainScreenViewModel
 import kotlinx.coroutines.delay
 
+/**
+ * SplashScreen Composable
+ *
+ * @param navController
+ * @param mainScreenViewModel
+ */
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(navController: NavHostController, mainScreenViewModel: MainScreenViewModel) {
     LaunchedEffect(key1 = true) {
-        delay(1000)
-        navController.popBackStack()    //So we can't get back to this screen.
-        navController.navigate(Routes.MainScreen.route)
+        delay(3000)
+        navController.popBackStack()
+        navController.navigate(Routes.MainScreen.routes)
+        mainScreenViewModel.isDataStored(
+            onCollected = {
+                if (it) {
+                    navController.navigate(Routes.MainScreen.routes)
+                } else {
+                    navController.navigate(Routes.OnBoardingScreen.routes)
+                }
+            }
+        )
     }
 
     Splash()
 }
 
+/**
+ * Splash Composable
+ *
+ */
 @Composable
 fun Splash() {
-    var isVisible by remember { mutableStateOf(false) }
-
-    LaunchedEffect(key1 = true) {
-        isVisible = true
+    val state = remember {
+        MutableTransitionState(false).apply {
+            targetState = true
+        }
     }
-
-    val alpha by animateFloatAsState(
-        targetValue = if (isVisible) 1f else 0f,
-        animationSpec = tween(durationMillis = 1000),
-        label = ""
-    )
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
+            .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.profilepic),
-            contentDescription = "foto de perfil",
-            modifier = Modifier
-                .clip(CircleShape)
-                .size(150.dp)
-                .height(100.dp)
-                .width(100.dp)
-                .alpha(alpha), //Apply animation here
-            contentScale = ContentScale.Crop
-        )
-        Spacer(modifier = Modifier.height(25.dp))
-        Text(
-            text = "Albert Lozano",
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.alpha(alpha) //Apply animation here
-        )
+        AnimatedVisibility(
+            visibleState = state,
+            enter = expandVertically(),
+            exit = scaleOut()
+        )  {
+            Image(
+                painter = painterResource(id = R.drawable.easycart_logo),
+                contentDescription = "Profile photo",
+                modifier = Modifier
+                    .size(height = 200.dp, width = 200.dp)
+            )
+        }
     }
 }

@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">ListAlbert</string>
+        <string name="app_name">AlbertFinal</string>
+    <string name="myShoppingCart">Mi carrito</string>
+    <string name="add">Añadir</string>
+    <string name="logOut">Cerrar Sesión</string>
+    <string name="author">Autor</string>
+    <string name="easyCartWelcome">¡Bienvenido a EasyCart!</string>
+    <string name="easyCartDescription">Aquí podrás crear tu lista de la compra de forma fácil, sencilla y eficiente.</string>
+    <string name="logIn">Iniciar Sesión</string>
+    <string name="userName">Nombre de usuario</string>
+    <string name="next">Siguiente</string>
+    <string name="shoppingCart">Carrito de la compra</string>
+    <string name="thanksForUsing">Gracias por usar EasyCart.</string>
+    <string name="productName">Nombre del producto</string>
+    <string name="productSupermarket">Supermercado</string>
+    <string name="productPrice">Precio del producto</string>
+    <string name="edit">Editar</string>
+    <string name="appMadeBy">Aplicación desarrollada por:</string>
+    <string name="albertLozanoBlasco">Albert Lozano Blasco.</string>
 </resources>

@@ -1,29 +1,32 @@
+/**
+ * @author Albert Lozano Blasco
+ * @version 2.1
+ */
+
 package com.albertlozano.albertfinal.ui.screens
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FabPosition
+import androidx.compose.material.icons.filled.AddShoppingCart
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.EuroSymbol
+import androidx.compose.material.icons.filled.ShoppingBasket
+import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -32,96 +35,132 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.albertlozano.albertfinal.R
+import com.albertlozano.albertfinal.common.TopCenterAppBarCustom
 import com.albertlozano.albertfinal.navigation.Routes
-import com.albertlozano.albertfinal.viewmodel.ProductViewModel
+import com.albertlozano.albertfinal.viewmodel.MainScreenViewModel
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
+/**
+ * EditScreen Composable
+ *
+ * @param navController
+ * @param mainScreenViewModel
+ */
 @Composable
-fun EditScreen(navController: NavController, productViewModel: ProductViewModel) {
+fun EditScreen(navController: NavHostController, mainScreenViewModel: MainScreenViewModel) {
     Scaffold(
-        //Top Bar with Dragon Ball logos and author's name
+        containerColor = Color.White,
+        contentColor = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.fillMaxSize(),
         topBar = {
-            CenterAlignedTopAppBar(title = {
-                Image(
-                    painter = painterResource(id = R.drawable.consum),
-                    contentDescription = "app name",
-                    Modifier.size(150.dp)
-                )
-            }, navigationIcon = {
-                var dropped by rememberSaveable { mutableStateOf(false) }
-                IconButton(
-                    onClick = { dropped = true }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Menu,
-                        contentDescription = "icono menu",
-                        tint = Color.White
-                    )
-                }
-                DropdownMenu(expanded = dropped, onDismissRequest = { dropped = false }) {
-                    DropdownMenuItem(
-                        text = { Text(text = "Principal") },
-                        onClick = { navController.navigate(route = Routes.MainScreen.route) },
-                        leadingIcon = { Icon(imageVector = Icons.Default.Home, contentDescription = "principal") }
-                    )
-                    DropdownMenuItem(
-                        text = { Text(text = "Añadir") },
-                        onClick = { navController.navigate(route = Routes.AddScreen.route) },
-                        leadingIcon = { Icon(imageVector = Icons.Default.Add, contentDescription = "principal") }
-                    )
-                    DropdownMenuItem(
-                        text = { Text(text = "Autor") },
-                        onClick = { navController.navigate(route = Routes.AuthorScreen.route) },
-                        leadingIcon = { Icon(imageVector = Icons.Default.Person, contentDescription = "principal") }
-                    )
-                    DropdownMenuItem(
-                        text = { Text(text = "Cerrar sesión") },
-                        onClick = { navController.navigate(route = Routes.LogOutScreen.route) },
-                        leadingIcon = { Icon(imageVector = Icons.Default.ExitToApp, contentDescription = "principal") }
-                    )
-                }
-            }, actions = {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "Albert", fontSize = 15.sp, fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = "Lozano", fontSize = 15.sp, fontWeight = FontWeight.Bold
-                    )
-                }
-            }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                actionIconContentColor = colorResource(id = R.color.white)
-            )
-            )
+            TopCenterAppBarCustom(navController, mainScreenViewModel)
         },
-        //Button to show the app's author information. A photo and a text
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { },
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = colorResource(id = R.color.white)
+                onClick = {
+                    navController.popBackStack()
+                },
+                containerColor = contentColorFor(MaterialTheme.colorScheme.tertiaryContainer)
             ) {
                 Icon(
-                    imageVector = Icons.Default.ShoppingCart,
-                    contentDescription = "autor",
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Volver atrás",
+                    tint = MaterialTheme.colorScheme.primaryContainer
                 )
             }
-        },
-        //Button's position in the Scaffold
-        floatingActionButtonPosition = FabPosition.End
-    ) {
+        }
+    ) { innerPadding ->
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            var inputProductName by rememberSaveable { mutableStateOf("") }
+            var inputSupermarket by rememberSaveable { mutableStateOf("") }
+            var inputPrice by rememberSaveable { mutableStateOf("") }
 
+            Spacer(modifier = Modifier.padding(innerPadding))
+            TextField(
+                colors = TextFieldDefaults.colors(MaterialTheme.colorScheme.primary),
+                value = inputProductName,
+                onValueChange = { input ->
+                    inputProductName = input
+                },
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.productName),
+                    )
+                },
+                leadingIcon = {
+                    Icon(
+                        tint = MaterialTheme.colorScheme.primary,
+                        imageVector = Icons.Default.AddShoppingCart, contentDescription = "Icono del campo"
+                    )
+                },
+            )
+            Spacer(modifier = Modifier.padding(8.dp))
+            TextField(
+                colors = TextFieldDefaults.colors(MaterialTheme.colorScheme.primary),
+                value = inputSupermarket,
+                onValueChange = { input ->
+                    inputSupermarket = input
+                },
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.productSupermarket)
+                    )
+                },
+                leadingIcon = {
+                    Icon(
+                        tint = MaterialTheme.colorScheme.primary,
+                        imageVector = Icons.Default.ShoppingBasket, contentDescription = "Icono del campo"
+                    )
+                }
+            )
+            Spacer(modifier = Modifier.padding(8.dp))
+            TextField(
+                colors = TextFieldDefaults.colors(MaterialTheme.colorScheme.primary),
+                value = inputPrice,
+                onValueChange = { input ->
+                    inputPrice = input
+                },
+                label = {
+                    Text(
+                        text = stringResource(id = R.string.productPrice)
+                    )
+                },
+                leadingIcon = {
+                    Icon(
+                        tint = MaterialTheme.colorScheme.primary,
+                        imageVector = Icons.Default.EuroSymbol, contentDescription = "Icono del campo"
+                    )
+                              },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            )
+            Spacer(modifier = Modifier.padding(25.dp))
+            Button(
+                onClick = {
+                    mainScreenViewModel.updateProduct(inputProductName, inputSupermarket, inputPrice.toDouble())
+                    inputProductName = ""
+                    inputSupermarket = ""
+                    inputPrice = ""
+                    navController.navigate(Routes.MainScreen.routes)
+                },
+                enabled = (inputProductName != "" && inputSupermarket != "" && inputPrice != "")
+            ) {
+                AnimatedVisibility(visible = true) {
+                    Text(
+                        text = stringResource(R.string.edit),
+                        modifier = Modifier.size(width = 100.dp, height = 20.dp),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+        }
     }
 }

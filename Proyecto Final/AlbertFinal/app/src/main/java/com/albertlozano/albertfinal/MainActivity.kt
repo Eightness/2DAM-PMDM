@@ -1,3 +1,8 @@
+/**
+ * @author Albert Lozano Blasco
+ * @version 2.1
+ */
+
 package com.albertlozano.albertfinal
 
 import android.os.Bundle
@@ -8,24 +13,27 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.albertlozano.albertfinal.ui.theme.AlbertFinalTheme
 import com.albertlozano.albertfinal.navigation.Navigation
-import com.albertlozano.albertfinal.ui.theme.ListAlbertTheme
-import com.albertlozano.albertfinal.viewmodel.ProductViewModel
+import com.albertlozano.albertfinal.viewmodel.MainScreenViewModel
 
+/**
+ * MainActivity
+ *
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val videogameViewModel by viewModels<ProductViewModel>()
+        val mainScreenViewModel by viewModels<MainScreenViewModel>()
 
         setContent {
-            ListAlbertTheme {
-                // A surface container using the 'background' color from the theme
+            AlbertFinalTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = MaterialTheme.colorScheme.primary
                 ) {
-                    Navigation(videogameViewModel)
+                    Navigation(mainScreenViewModel)
                 }
             }
         }

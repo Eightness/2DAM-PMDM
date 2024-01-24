@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AlbertFinal</string>
+    <string name="myShoppingCart">El meu carret</string>
+    <string name="add">Afegir</string>
+    <string name="logOut">Tancar Sessió</string>
+    <string name="author">Autor</string>
+    <string name="easyCartWelcome">Benvingut a EasyCart!</string>
+    <string name="easyCartDescription">Ací podras crear la teua llista de la compra de manera fàcil, sencilla i eficient.</string>
+    <string name="logIn">Iniciar Sessió</string>
+    <string name="userName">Nom d\'usuari</string>
+    <string name="next">Següent</string>
+    <string name="shoppingCart">Carret de la compra</string>
+    <string name="thanksForUsing">Gràcies per usar EasyCart.</string>
+    <string name="productName">Nom del producte</string>
+    <string name="productSupermarket">Supermercat</string>
+    <string name="productPrice">Preu del producte</string>
+    <string name="edit">Editar</string>
+    <string name="appMadeBy">Aplicació desenvolupada per:</string>
+    <string name="albertLozanoBlasco">Albert Lozano Blasco</string>
+</resources>

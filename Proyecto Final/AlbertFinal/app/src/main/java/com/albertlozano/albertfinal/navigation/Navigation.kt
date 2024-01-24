@@ -1,3 +1,8 @@
+/**
+ * @author Albert Lozano Blasco
+ * @version 2.1
+ */
+
 package com.albertlozano.albertfinal.navigation
 
 import androidx.compose.runtime.Composable
@@ -7,62 +12,59 @@ import androidx.navigation.compose.rememberNavController
 import com.albertlozano.albertfinal.ui.screens.AddScreen
 import com.albertlozano.albertfinal.ui.screens.AuthorScreen
 import com.albertlozano.albertfinal.ui.screens.EditScreen
-import com.albertlozano.albertfinal.ui.screens.LogOutScreen
 import com.albertlozano.albertfinal.ui.screens.MainScreen
-import com.albertlozano.albertfinal.ui.screens.ProductInfo
+import com.albertlozano.albertfinal.ui.screens.OnBoardingScreen
+import com.albertlozano.albertfinal.ui.screens.ProductScreen
 import com.albertlozano.albertfinal.ui.screens.SplashScreen
-import com.albertlozano.albertfinal.ui.screens.onboarding.FirstOnBoarding
-import com.albertlozano.albertfinal.ui.screens.onboarding.FourthOnBoarding
-import com.albertlozano.albertfinal.ui.screens.onboarding.SecondOnBoarding
-import com.albertlozano.albertfinal.ui.screens.onboarding.ThirdOnBoarding
-import com.albertlozano.albertfinal.viewmodel.ProductViewModel
+import com.albertlozano.albertfinal.viewmodel.MainScreenViewModel
 
+/**
+ * Navigation Composable
+ *
+ * @param mainScreenViewModel
+ */
 @Composable
-fun Navigation(productViewModel: ProductViewModel) {
+fun Navigation(mainScreenViewModel: MainScreenViewModel) {
     val navController = rememberNavController()
+
     NavHost(
         navController = navController,
-        startDestination = Routes.SplashScreen.route
+        startDestination = Routes.SplashScreen.routes
     ) {
-        //Splash Screen
-        composable(Routes.SplashScreen.route) {
-            SplashScreen(navController)
+        composable(
+            route = Routes.SplashScreen.routes
+        ) {
+            SplashScreen(navController, mainScreenViewModel)
         }
-
-        //On Boarding
-        composable(Routes.FirstOnBoarding.route) {
-            FirstOnBoarding(navController, productViewModel)
+        composable(
+            route = Routes.MainScreen.routes
+        ) {
+            MainScreen(navController, mainScreenViewModel)
         }
-        composable(Routes.SecondOnBoarding.route) {
-            SecondOnBoarding(navController, productViewModel)
+        composable(
+            route = Routes.OnBoardingScreen.routes
+        ) {
+            OnBoardingScreen(navController, mainScreenViewModel)
         }
-        composable(Routes.ThirdOnBoarding.route) {
-            ThirdOnBoarding(navController, productViewModel)
+        composable(
+            route = Routes.AuthorScreen.routes
+        ) {
+            AuthorScreen(navController)
         }
-        composable(Routes.FourthOnBoarding.route) {
-            FourthOnBoarding(navController, productViewModel)
+        composable(
+            route = Routes.AddScreen.routes
+        ) {
+            AddScreen(navController, mainScreenViewModel)
         }
-
-        //Main Screen
-        composable(Routes.MainScreen.route) {
-            MainScreen(navController, productViewModel)
+        composable(
+            route = Routes.ProductScreen.routes
+        ) {
+            ProductScreen(navController, mainScreenViewModel)
         }
-        composable(Routes.ProductInfo.route) {
-            ProductInfo(navController, productViewModel)
-        }
-
-        //DropDown Menu
-        composable(Routes.AddScreen.route) {
-            AddScreen(navController, productViewModel)
-        }
-        composable(Routes.EditScreen.route) {
-            EditScreen(navController, productViewModel)
-        }
-        composable(Routes.AuthorScreen.route) {
-            AuthorScreen(navController, productViewModel)
-        }
-        composable(Routes.LogOutScreen.route) {
-            LogOutScreen(navController, productViewModel)
+        composable(
+            route = Routes.EditScreen.routes
+        ) {
+            EditScreen(navController, mainScreenViewModel)
         }
     }
 }
